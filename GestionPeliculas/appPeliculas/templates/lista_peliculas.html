@@ -1,0 +1,28 @@
+{% extends 'inicio.html' %} {% load static %} {% block titulo %} Listar
+Peliculas {% endblock titulo %} {% block contenido %}
+
+<body>
+  <div class="todo">
+    <div class="row">
+      {% for p in lista %}
+
+      <div class="col s12 m6 l3 center-align">
+        <div class="card large">
+          <div class="card-image">
+            <img height="100px" width="100px" src="/media/{{p.pelFoto}}" />
+            <span class="card-title">{{p.pelTitulo}}</span>
+          </div>
+          <div class="card-content">
+            <p>{{p.pelResumen}}</p>
+          </div>
+          <div class="card-action">
+              VER ONLINE
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+{% endblock %}

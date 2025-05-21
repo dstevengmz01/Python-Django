@@ -21,6 +21,16 @@ def vista_agregar_pelicula(request):
     return render(request, 'vista_agregar_pelicula.html', locals())
 
 
+
+def  vista_peliculas(request):
+    lista = Pelicula.objects.filter()
+    return render(request, 'lista_peliculas.html', locals())
+
+def vista_ver_pelicula(request,id_peli):
+    p = Pelicula.objects.get(id=id_peli)
+    return render(request,'ver_pelicula.html',locals())
+
+
 def vista_agregar_genero(request):
     if request.method == 'POST':
         formulario = agregar_genero_form(request.POST, request.FILES)
