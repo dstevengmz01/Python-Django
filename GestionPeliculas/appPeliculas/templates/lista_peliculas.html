@@ -1,28 +1,40 @@
-{% extends 'inicio.html' %} {% load static %} {% block titulo %} Listar
-Peliculas {% endblock titulo %} {% block contenido %}
+{% extends 'inicio.html' %}
+{% load static %}
 
-<body>
-  <div class="todo">
-    <div class="row">
-      {% for p in lista %}
+{% block titulo %}Lista de Películas{% endblock titulo %}
 
-      <div class="col s12 m6 l3 center-align">
-        <div class="card large">
-          <div class="card-image">
-            <img height="100px" width="100px" src="/media/{{p.pelFoto}}" />
-            <span class="card-title">{{p.pelTitulo}}</span>
-          </div>
-          <div class="card-content">
-            <p>{{p.pelResumen}}</p>
-          </div>
-          <div class="card-action">
-              VER ONLINE
-            </a>
-          </div>
+{% block contenido %}
+<div class="container py-4">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for p in lista %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        {% if p.pelFoto %}
+        <img src="{{ p.pelFoto.url }}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="{{ p.pelTitulo }}">
+        {% else %}
+        <img src="{% static 'img/no-image.jpg' %}" class="card-img-top" style="height: 300px; object-fit: cover;" alt="Sin imagen">
+        {% endif %}
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ p.pelTitulo }}</h5>
+          <p><strong>Resumen:</strong> {{ p.pelResumen }}</p>
+          <p><strong>Protagonista:</strong> {{ p.pelProtagonista }}</p>
+          <p><strong>Duración:</strong> {{ p.pelDuracion }} min</p>
+          <p><strong>Género:</strong>
+            {% for genero in p.pelGenero.all %}
+              {{ genero.genNombre }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              Sin género
+            {% endfor %}
+          </p>
+        </div>
+        <div class="card-footer text-center">
+          <a href="{% url 'vista_editar_pelicula' id_peli=p.id %}" class="btn btn-sm btn-primary">Editar</a>
+          <a href="{% url 'vista_eliminar_pelicula' id_peli=p.id %}" class="btn btn-sm btn-danger">Eliminar</a>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
-</body>
+</div>
 {% endblock %}

@@ -15,7 +15,7 @@ def vista_agregar_pelicula(request):
             peli.status = True
             peli.save()
             formulario.save_m2m()
-            return redirect ('/inicio')
+            return redirect ('/lista_peliculas')
     else:
         formulario = agregar_pelicula_form()
     return render(request, 'vista_agregar_pelicula.html', locals())
@@ -43,3 +43,23 @@ def vista_agregar_genero(request):
     else:
             formulario = agregar_genero_form()
     return render(request, 'vista_agregar_genero.html', locals()) 
+
+
+def vista_editar_pelicula(request, id_peli):
+	peli = Pelicula.objects.get(id=id_peli)
+	if request.method == "POST":
+		formulario = agregar_pelicula_form(request.POST, request.FILES, instance=peli)
+		if formulario.is_valid():
+			peli = formulario.save()
+			return redirect ('/lista_peliculas/')
+	else:
+		formulario = agregar_pelicula_form(instance = peli)
+	return render(request, 'vista_agregar_pelicula.html',locals())
+
+
+
+def vista_eliminar_pelicula(request, id_peli):
+	peli = Pelicula.objects.get(id=id_peli)
+	peli.delete()
+	return redirect ('/lista_peliculas/')
+
