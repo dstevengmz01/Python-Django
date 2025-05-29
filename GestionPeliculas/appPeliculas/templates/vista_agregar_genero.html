@@ -1,10 +1,16 @@
-{% extends 'inicio.html' %} {% load static %} {% block titulo %} Agregar_genero
-{% endblock titulo %} {% block contenido %}
+{% extends 'inicio.html' %}
+{% load static %} 
+{% block titulo %} Agregar_genero
+{% endblock titulo %}
+ {% block contenido %}
 <div>
   <h1>AGREGE UN GENERO</h1>
-  <form action="" method="POST" enctype="multypart/form-data">
-    {% csrf_token %} {{ formulario.as_p }}
+  <form action="" method="POST"  id="form-genero" enctype="multypart/form-data">
+    {% csrf_token %} 
+    {{ formulario.as_p }}
     <input type="submit" value="Agregar_genero" />
   </form>
 </div>
+    <script src="{% static 'js/index.js' %}"></script>
+
 {%endblock%}
